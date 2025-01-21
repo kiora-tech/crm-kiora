@@ -14,7 +14,8 @@
                 <div class="card-body">
                     {{ include('contact/_form.html.twig', {'button_label': "update"|trans }) }}
 
-
+                    <a class="btn btn-primary mt-3"
+                       href="{{ path('app_contact_index', {'id': contact.id}) }}">{{ "button.back"|trans }}</a>
             
                 </div>
             </div>

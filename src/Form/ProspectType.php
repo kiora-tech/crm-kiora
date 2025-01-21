@@ -5,7 +5,7 @@ namespace App\Form;
 use App\Entity\Prospect;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -26,14 +26,30 @@ class ProspectType extends AbstractType
             ->add('phone', NumberType::class, [
                 'required' => false,
             ])
-            ->add('status', TextType::class, [
+            ->add('status', ChoiceType::class, [
                 'required' => false,
+                'choices' => [
+                    'Nouveau' => 'Nouveau',
+                    'Contacter' => 'Contacter',
+                    'Qualifier' => 'Qualifier',
+                    'Proposition' => 'Proposition',
+                    'Negociation' => 'Negociation',
+                    'Gagner' => 'Gagner',
+                    'Perdu' => 'Perdu',
+                ],
+                'placeholder' => 'Séléctionnez le status',
             ])
             ->add('budget', NumberType::class, [
                 'required' => false,
             ])
-            ->add('priority', TextType::class, [
+            ->add('priority', ChoiceType::class, [
                 'required' => false,
+                'choices' => [
+                    'HAUT' => 'HAUT',
+                    'MOYEN' => 'MOYEN',
+                    'BAS' => 'BAS',
+                ],
+                'placeholder' => 'Séléctionnez la priorité',
             ])
             ->add('lastContact', DateType::class, [
                 'required' => false,

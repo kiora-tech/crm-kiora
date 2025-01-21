@@ -12,10 +12,10 @@
         <div class="row">
             <div class="card p-4">
                 <div class="card-body">
-                    {{ include('prospect/_form.html.twig', {'button_label': "update"|trans }) }}
+                    {{ include('task/_form.html.twig', {'button_label': "update"|trans }) }}
 
                     <a class="btn btn-primary mt-3"
-                       href="{{ path('app_prospect_index', {'id': prospect.id}) }}">{{ "button.back"|trans }}</a>
+                       href="{{ path('app_task_index', {'id': task.id}) }}">{{ "button.back"|trans }}</a>
             
                 </div>
             </div>
