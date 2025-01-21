@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ "prospect.index"|trans }}
+{% endblock %}
+
+{% block body %}
+    <div class="pagetitle d-flex justify-content-between">
+        <h1>{{ "menu.prospect"|trans }}</h1>
+        <a href="{{ path('app_prospect_new') }}" class="btn btn-primary">
+            {{ "create"|trans }}
+        </a>
+    </div>
+    <section class="section">
+        <div class="card p-4">
+            <div class="card-body">
+                <table class="table">
+                    <thead class="bg-gray-50">
+                    <tr class="table-primary">
+                        <th scope="col"
+                            class="px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            {{ "id"|trans }}
+                        </th>
+                        <th scope="col"
+                            class="px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            {{ "email"|trans }}
+                        </th>
+                        <th scope="col"
+                            class="px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            {{ "status"|trans }}
+                        </th>
+                        <th scope="col"
+                            class="px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            {{ "button.actions"|trans }}
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                    {% for prospect in prospects %}
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">{{ prospect.id }}</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">{{ prospect.email }}</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">{{ prospect.status }}</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <a href="{{ path('app_prospect_edit', {'id': prospect.id}) }}"
+                                   class="btn btn-primary">{{ "button.edit"|trans }}</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4"
+                                class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-500">
+                                {{ "no_record"|trans }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+{% endblock %}

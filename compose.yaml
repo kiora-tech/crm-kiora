@@ -11,7 +11,7 @@ services:
       timeout: 2s
       retries: 30
     networks:
-      - gdb_internal_network
+      - user_app
     restart:
       always
     volumes:
@@ -26,7 +26,7 @@ services:
       - MAILER_DSN=${MAILER_DSN:-smtp://mailer:1025}
       - TRUSTED_PROXIES=${TRUSTED_PROXIES}
     networks:
-      - gdb_internal_network
+      - user_app
     entrypoint: [ "sh", "/var/www/website/entrypoint.sh" ]
     restart:
       always
@@ -37,7 +37,7 @@ services:
       - database
     networks:
       - kiora_network
-      - gdb_internal_network
+      - user_app
     restart:
       always
 volumes:
@@ -47,5 +47,5 @@ volumes:
 networks:
   kiora_network:
     external: true
-  gdb_internal_network:
+  user_app:
     driver: bridge

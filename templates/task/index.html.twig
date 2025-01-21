@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ "task.index"|trans }}{% endblock %}
+
+{% block body %}
+    <div class="pagetitle d-flex justify-content-between">
+        <h1>{{ "menu.task"|trans }}</h1>
+        <a href="{{ path('app_task_new') }}" class="btn btn-primary">
+            {{ "create"|trans }}
+        </a>
+    </div>
+    <section class="section">
+        <div class="card p-4">
+            <div class="card-body">
+                <table class="table">
+                    <thead class="bg-gray-50">
+                        <tr class="table-primary">
+                            <th scope="col" class="text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                {{ "id"|trans }}
+                            </th>
+                            <th scope="col" class="text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                {{ "name"|trans }}
+                            </th>
+                            <th scope="col" class="text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                {{ "status"|trans }}
+                            </th>
+                            <th scope="col" class="text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                {{ "priority"|trans }}
+                            </th>
+                            <th scope="col" class="text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                {{ "date_end"|trans }}
+                            </th>
+                            <th scope="col" class="text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                {{ "button.actions"|trans }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for task in tasks %}
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">{{ task.id }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">{{ task.name }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">{{ task.status }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">{{ task.priority }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">
+                                        {{ task.dateEnd ? task.dateEnd|date('Y-m-d') : '' }}
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <a href="{{ path('app_task_edit', {'id': task.id}) }}" 
+                                       class="btn btn-primary">{{ "button.edit"|trans }}</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="6" class="px-6 py-4 text-center text-sm text-gray-500">
+                                    {{ "no_record"|trans }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+{% endblock %}

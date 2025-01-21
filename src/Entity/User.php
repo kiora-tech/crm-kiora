@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -47,6 +49,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $lastName = null;
+
+    /**
+     * @var Collection<int, Task>
+     */
+    #[ORM\ManyToMany(targetEntity: Task::class, mappedBy: 'users')]
+    private Collection $tasks;
+
+    /**
+     * @var Collection<int, Calendar>
+     */
+    #[ORM\ManyToMany(targetEntity: Calendar::class, mappedBy: 'agenda')]
+    private Collection $agenda;
+
+    public function __construct()
+    {
+        $this->tasks = new ArrayCollection();
+        $this->agenda = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -167,6 +187,60 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastName(string $lastName): static
     {
         $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Task>
+     */
+    public function getTasks(): Collection
+    {
+        return $this->tasks;
+    }
+
+    public function addTask(Task $task): static
+    {
+        if (!$this->tasks->contains($task)) {
+            $this->tasks->add($task);
+            $task->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTask(Task $task): static
+    {
+        if ($this->tasks->removeElement($task)) {
+            $task->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Calendar>
+     */
+    public function getAgenda(): Collection
+    {
+        return $this->agenda;
+    }
+
+    public function addAgenda(Calendar $agenda): static
+    {
+        if (!$this->agenda->contains($agenda)) {
+            $this->agenda->add($agenda);
+            $agenda->addAgenda($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAgenda(Calendar $agenda): static
+    {
+        if ($this->agenda->removeElement($agenda)) {
+            $agenda->removeAgenda($this);
+        }
 
         return $this;
     }
