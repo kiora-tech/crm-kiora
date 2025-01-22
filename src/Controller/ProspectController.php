@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Enum\Badge;
+use App\Enum\Status;
 
 class ProspectController extends AbstractController
 {
@@ -17,6 +19,18 @@ class ProspectController extends AbstractController
     public function index(ProspectRepository $prospectRepository): Response
     {
         $prospects = $prospectRepository->findAll();
+
+        foreach ($prospects as $prospect) {
+            if ($prospect->getPriority()) {
+                $priorityValue = $prospect->getPriority()->value;
+                $prospect->setPriority(Badge::from($priorityValue));
+            }
+            if ($prospect->getStatus()) {
+                $statusValue = $prospect->getStatus()->value;
+                $prospect->setStatus(Status::from($statusValue));
+              
+            }
+        }
 
         return $this->render('prospect/index.html.twig', [
             'prospects' => $prospects,

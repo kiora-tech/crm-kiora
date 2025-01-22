@@ -5,7 +5,8 @@ namespace App\Entity;
 use App\Repository\ProspectRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+use App\Enum\Badge;
+use App\Enum\Status; 
 #[ORM\Entity(repositoryClass: ProspectRepository::class)]
 class Prospect
 {
@@ -23,14 +24,14 @@ class Prospect
     #[ORM\Column(nullable: true)]
     private ?int $phone = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $status = null;
+    #[ORM\Column(type: 'status_enum', nullable: true)]
+    private ?Status $status = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $budget = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $priority = null;
+    #[ORM\Column(type: 'badge_enum', nullable: true)]
+    private ?Badge $priority = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $lastContact = null;
@@ -79,12 +80,12 @@ class Prospect
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): ?Status
     {
         return $this->status;
     }
 
-    public function setStatus(?string $status): static
+    public function setStatus(?Status $status): static
     {
         $this->status = $status;
 
@@ -103,15 +104,14 @@ class Prospect
         return $this;
     }
 
-    public function getPriority(): ?string
+    public function getPriority(): ?Badge
     {
         return $this->priority;
     }
 
-    public function setPriority(?string $priority): static
+    public function setPriority(?Badge $priority): self
     {
         $this->priority = $priority;
-
         return $this;
     }
 
