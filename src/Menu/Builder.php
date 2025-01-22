@@ -54,7 +54,7 @@ final readonly class Builder
 
         $menu->addChild('menu.user', ['route' => 'app_user_index'])
             ->setLabel((string)t('menu.user'))
-            ->setExtra('icon', 'bi bi-journal-text')
+            ->setExtra('icon', 'bi bi-list')
             ->setExtra('safe_label', true);
 
         $menu->addChild('Contact', ['route' => 'app_contact_index'])
@@ -64,16 +64,16 @@ final readonly class Builder
 
         $menu->addChild('Calendrier', ['route' => 'app_calendar_index'])
             ->setLabel((string)t('Calendrier'))
-            ->setExtra('icon', 'bi bi-journal-text')
+            ->setExtra('icon', 'bi bi-app')
             ->setExtra('safe_label', true);
 
         $menu->addChild('Task', ['route' => 'app_task_index'])
             ->setLabel((string)t('Task'))
-            ->setExtra('icon', 'bi bi-journal-text')
+            ->setExtra('icon', 'bi bi-bar-chart-fill')
             ->setExtra('safe_label', true);
         $menu->addChild('Prospect', ['route' => 'app_prospect_index'])
             ->setLabel((string)t('Prospect'))
-            ->setExtra('icon', 'bi bi-journal-text')
+            ->setExtra('icon', 'bi bi-book')
             ->setExtra('safe_label', true);
         return $menu;
     }
